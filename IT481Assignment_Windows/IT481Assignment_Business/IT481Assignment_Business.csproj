@@ -46,5 +46,11 @@
     <Compile Include="ICustomers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IT481Assignment_Data\IT481Assignment_Data.csproj">
+      <Project>{6a91c871-36f5-41a4-9a12-9569af72acfb}</Project>
+      <Name>IT481Assignment_Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -68,7 +68,7 @@
             this.lstCustomerList.HorizontalScrollbar = true;
             this.lstCustomerList.Location = new System.Drawing.Point(135, 51);
             this.lstCustomerList.Name = "lstCustomerList";
-            this.lstCustomerList.Size = new System.Drawing.Size(303, 121);
+            this.lstCustomerList.Size = new System.Drawing.Size(303, 693);
             this.lstCustomerList.TabIndex = 3;
             // 
             // btnRefresh
@@ -85,7 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 196);
+            this.ClientSize = new System.Drawing.Size(589, 756);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lstCustomerList);
             this.Controls.Add(this.lblCustomerCount);

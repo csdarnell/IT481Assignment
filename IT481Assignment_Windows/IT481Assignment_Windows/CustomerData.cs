@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace IT481Assignment_Windows
 {
     public partial class CustomerData : Form
     {
-        private Customers customers = new Customers();
+        private Customers customers = new Customers(ConfigurationManager.ConnectionStrings["Northwind"].ConnectionString);
 
         public CustomerData()
         {

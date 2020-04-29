@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IT481Assignment_Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,16 +10,21 @@ namespace IT481Assignment_Business
 {
     public class Customers : ICustomers
     {
-        List<Customer> customers = new List<Customer>();
-
-        public Customers()
-        {
-            LoadCustomers();
-        }
+        private CustomerManager customerManager;
+        private List<Customer> customers = new List<Customer>();
 
         public int CustomerCount => customers.Count;
 
         public IReadOnlyCollection<Customer> CustomerList => new ReadOnlyCollection<Customer>(customers);
+
+
+        public Customers(string connectionString)
+        {
+            DataInitializer initializer = new DataInitializer(connectionString);
+            customerManager = initializer.GetCustomerManager();
+
+            LoadCustomers();
+        }
 
         public void Refresh()
         {
@@ -27,6 +33,40 @@ namespace IT481Assignment_Business
 
         private void LoadCustomers()
         {
+            if (customerManager == null)
+                return;
+
+            customers.Clear();
+
+            var rawCustomers = customerManager.GetCustomers();
+
+            foreach(var rawCustomer in rawCustomers)
+            {
+                var customer = new Customer();
+                customer.CustomerId = rawCustomer.CustomerId;
+
+                // Handle varying length names, considering that the ContactName field is the full name of the person
+                var namePieces = rawCustomer.ContactName.Split(' ');
+                switch(namePieces.Length)
+                {
+                    case 2:
+                        customer.FirstName = namePieces[0];
+                        customer.LastName = namePieces[namePieces.Length - 1];
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                        customer.FirstName = namePieces[0];
+                        customer.MiddleName = namePieces[1];
+                        customer.LastName = namePieces[namePieces.Length - 1];
+                        break;
+                    default:
+                        customer.LastName = rawCustomer.ContactName;
+                        break;
+                }
+                customers.Add(customer);
+            }
 
         }
     }
