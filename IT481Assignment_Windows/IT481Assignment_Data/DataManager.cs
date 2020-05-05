@@ -158,7 +158,7 @@ namespace IT481Assignment_Data
                                     order.RequiredDate = reader.IsDBNull(reader.GetOrdinal("RequiredDate")) == true ? DateTime.MinValue : reader.GetFieldValue<DateTime>(reader.GetOrdinal("RequiredDate"));
                                     order.ShippedDate = reader.IsDBNull(reader.GetOrdinal("ShippedDate")) == true ? DateTime.MinValue : reader.GetFieldValue<DateTime>(reader.GetOrdinal("ShippedDate"));
                                     order.ShipVia = reader.IsDBNull(reader.GetOrdinal("ShipVia")) == true ? int.MinValue : reader.GetFieldValue<int>(reader.GetOrdinal("ShipVia"));
-                                    order.Freight = reader.IsDBNull(reader.GetOrdinal("Freight")) == true ? float.MinValue : reader.GetFieldValue<float>(reader.GetOrdinal("Freight"));
+                                    order.Freight = reader.IsDBNull(reader.GetOrdinal("Freight")) == true ? decimal.MinValue : reader.GetFieldValue<decimal>(reader.GetOrdinal("Freight"));
 
                                     order.ShipName = reader.IsDBNull(reader.GetOrdinal("ShipName")) == true ? string.Empty : reader.GetString(reader.GetOrdinal("ShipName"));
                                     order.ShipAddress = reader.IsDBNull(reader.GetOrdinal("ShipAddress")) == true ? string.Empty : reader.GetString(reader.GetOrdinal("ShipAddress"));

@@ -19,7 +19,7 @@ namespace IT481Assignment_Data
             dataManager = new DataManager(connectionString);
         }
 
-        public DataManager GetCustomerManager()
+        public DataManager GetDataManager()
         {
             return dataManager;
         }

@@ -25,9 +25,9 @@ namespace IT481Assignment_Windows
         {
             customers.Refresh();
 
-            lblCustomerCount.Text = customers.CustomerCount.ToString();
+            lblCustomerCount.Text = customers.Count.ToString();
 
-            foreach (Customer cust in customers.CustomerList)
+            foreach (Customer cust in customers.List)
             {
                 lstCustomerList.Items.Add(cust.LastName);
             }

@@ -11,11 +11,11 @@ namespace IT481Assignment_Business
         /// <summary>
         /// Employee Count
         /// </summary>
-        int EmployeeCount { get; }
+        int Count { get; }
         /// <summary>
         /// A read-only list of employees
         /// </summary>
-        IReadOnlyCollection<Employee> EmployeeList { get; }
+        IReadOnlyCollection<Employee> List { get; }
         /// <summary>
         /// Refresh the Employee Data
         /// </summary>

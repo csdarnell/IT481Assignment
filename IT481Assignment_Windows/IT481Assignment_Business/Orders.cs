@@ -11,17 +11,17 @@ namespace IT481Assignment_Business
     public class Orders : IOrders
     {
         private DataManager dataManager;
-        private List<Employee> orders = new List<Employee>();
+        private List<Order> orders = new List<Order>();
 
-        public int OrderCount => orders.Count;
+        public int Count => orders.Count;
 
-        public IReadOnlyCollection<Employee> OrderList => new ReadOnlyCollection<Employee>(orders);
+        public IReadOnlyCollection<Order> List => new ReadOnlyCollection<Order>(orders);
 
 
         public Orders(string connectionString)
         {
             DataInitializer initializer = new DataInitializer(connectionString);
-            dataManager = initializer.GetCustomerManager();
+            dataManager = initializer.GetDataManager();
 
             Refresh();
         }
@@ -38,18 +38,18 @@ namespace IT481Assignment_Business
 
             orders.Clear();
 
-            var rawOrders = dataManager.GetEmployees();
+            var rawOrders = dataManager.GetOrders();
 
             foreach (var rawOrder in rawOrders)
             {
-                var order = new Employee();
+                var order = new Order();
+                order.OrderId = rawOrder.OrderID;
+                order.CustomerId = rawOrder.CustomerID;
                 order.EmployeeId = rawOrder.EmployeeID;
-                order.LastName = rawOrder.LastName;
-                order.FirstName = rawOrder.FirstName;
-                order.Title = rawOrder.Title;
-                order.TitleOfCourtesy = rawOrder.TitleOfCourtesy;
-                order.HireDate = rawOrder.HireDate;
-                order.Notes = rawOrder.Notes;
+                order.OrderDate = rawOrder.OrderDate;
+                order.RequiredDate = rawOrder.RequiredDate;
+                order.ShippedDate = rawOrder.ShippedDate;
+                order.ShipName = rawOrder.ShipName;
 
                 orders.Add(order);
             }
@@ -57,3 +57,4 @@ namespace IT481Assignment_Business
 
         }
     }
+}

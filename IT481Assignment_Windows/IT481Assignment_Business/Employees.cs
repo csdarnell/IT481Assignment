@@ -13,15 +13,15 @@ namespace IT481Assignment_Business
         private DataManager dataManager;
         private List<Employee> employees = new List<Employee>();
 
-        public int EmployeeCount => employees.Count;
+        public int Count => employees.Count;
 
-        public IReadOnlyCollection<Employee> EmployeeList => new ReadOnlyCollection<Employee>(employees);
+        public IReadOnlyCollection<Employee> List => new ReadOnlyCollection<Employee>(employees);
 
 
         public Employees(string connectionString)
         {
             DataInitializer initializer = new DataInitializer(connectionString);
-            dataManager = initializer.GetCustomerManager();
+            dataManager = initializer.GetDataManager();
 
             Refresh();
         }

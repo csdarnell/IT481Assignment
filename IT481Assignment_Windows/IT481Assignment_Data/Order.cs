@@ -17,7 +17,7 @@ namespace IT481Assignment_Data
         public DateTime RequiredDate { get; set; }
         public DateTime ShippedDate { get; set; }
         public int ShipVia { get; set; }
-        public float Freight { get; set; }
+        public decimal Freight { get; set; }
         public string ShipName { get; set; }
         public string ShipAddress { get; set; }
         public string ShipCity { get; set; }
