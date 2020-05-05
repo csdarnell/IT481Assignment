@@ -10,7 +10,7 @@ namespace IT481Assignment_Business
 {
     public class Customers : ICustomers
     {
-        private CustomerManager customerManager;
+        private DataManager dataManager;
         private List<Customer> customers = new List<Customer>();
 
         public int CustomerCount => customers.Count;
@@ -21,7 +21,7 @@ namespace IT481Assignment_Business
         public Customers(string connectionString)
         {
             DataInitializer initializer = new DataInitializer(connectionString);
-            customerManager = initializer.GetCustomerManager();
+            dataManager = initializer.GetCustomerManager();
 
             LoadCustomers();
         }
@@ -33,12 +33,12 @@ namespace IT481Assignment_Business
 
         private void LoadCustomers()
         {
-            if (customerManager == null)
+            if (dataManager == null)
                 return;
 
             customers.Clear();
 
-            var rawCustomers = customerManager.GetCustomers();
+            var rawCustomers = dataManager.GetCustomers();
 
             foreach(var rawCustomer in rawCustomers)
             {

@@ -11,17 +11,17 @@ namespace IT481Assignment_Data
     {
         private readonly string connectionString;
 
-        private CustomerManager customerManager;
+        private DataManager dataManager;
 
         public DataInitializer(string connectionString)
         {
             this.connectionString = connectionString;
-            customerManager = new CustomerManager(connectionString);
+            dataManager = new DataManager(connectionString);
         }
 
-        public CustomerManager GetCustomerManager()
+        public DataManager GetCustomerManager()
         {
-            return customerManager;
+            return dataManager;
         }
     }
 }
