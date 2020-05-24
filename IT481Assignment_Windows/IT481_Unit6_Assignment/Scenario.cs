@@ -23,6 +23,8 @@ namespace IT481_Unit6_Assignment
 
         private static Thread[] _threads;
 
+        private static List<Customer> _customers = new List<Customer>();
+
         public Scenario(int totalRooms, int numberOfCustomers)
         {
             _totalRooms = totalRooms;
@@ -33,6 +35,9 @@ namespace IT481_Unit6_Assignment
 
         static void Main(string[] args)
         {
+            Console.Write("What is the time scale to use?  (1000 = 1 second): ");
+            int timeScale = Int32.Parse(Console.ReadLine());
+
             Console.Write("How many rooms does the store have? ");
             _totalRooms = Int32.Parse(Console.ReadLine());
 
@@ -55,15 +60,23 @@ namespace IT481_Unit6_Assignment
 
             _threads = new Thread[_numberOfCustomers];
 
+            Task[] dressingRoomCustomerTasks = new Task[_numberOfCustomers];
+            
             for (int i = 0; i < _numberOfCustomers; i++)
             {
-                Customer _customer = new Customer(i.ToString(), _scenarioMaxGarmentsPerCustomer, _standardGarmentsPerCustomerThreshold, _scenarioAverageTimePerGarment);
+                Customer customer = new Customer(i.ToString(), _scenarioMaxGarmentsPerCustomer, _standardGarmentsPerCustomerThreshold, _scenarioAverageTimePerGarment);
+                _customers.Add(customer);
+                Console.WriteLine($"Customer {customer.Name} is now in line with {customer.NumberOfGarments} garments (time/garment: {customer.TimePerGarment}).");
+                dressingRoomCustomerTasks[i] = dressingRooms.RequestRoom(customer);
+            }
 
-                _totalItems += _customer.NumberOfGarments;
+            Task.WaitAll(dressingRoomCustomerTasks);
 
-                _threads[i] = new Thread(() => doThread(i, dressingRooms, _numberOfCustomers, _totalItems));
-
-                _threads[i].Start();
+            foreach(Customer customer in _customers)
+            {
+                _totalItems += customer.NumberOfGarments;
+                _cummulativeWaitTime += customer.WaitingStopWatch.ElapsedMilliseconds;
+                _cumulativeRunTime += customer.OccupiedStopwatch.ElapsedMilliseconds;
             }
 
             Console.WriteLine($"Average run time in milliseconds: {_cumulativeRunTime / _numberOfCustomers}");
