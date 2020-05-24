@@ -40,24 +40,25 @@ namespace IT481_Unit6_Assignment
             customer.WaitingStopWatch.Start();
 
             // Waiting on thread
-            Console.WriteLine($"Customer {customer.Name} is now waiting for an available room");
+            Console.WriteLine($"{DateTime.Now} - Customer {customer.Name} is now waiting for an available room");
             _semaphore.WaitOne();
 
             // Stop the wait timer
             customer.WaitingStopWatch.Stop();
 
-            Console.WriteLine($"Customer {customer.Name} can now use a dressing room.");
+            int timeToUseRoom = customer.TimePerGarment * _timeScale * customer.NumberOfGarments;
+            Console.WriteLine($"{DateTime.Now} - Customer {customer.Name} can now use a dressing room and will take {timeToUseRoom} milliseconds.");
 
             // Customer has entered a dressing room
             customer.OccupiedStopwatch.Start();
 
             // Get the wait time, then sleep
-            Thread.Sleep(customer.TimePerGarment * _timeScale * customer.NumberOfGarments);
+            Thread.Sleep(timeToUseRoom);
 
             // Stop the run timer, since the customer has left the dressing room
             customer.OccupiedStopwatch.Stop();
 
-            Console.WriteLine($"Customer {customer.Name} finished trying on items in room");
+            Console.WriteLine($"{DateTime.Now} - Customer {customer.Name} finished trying on items in room");
 
             _semaphore.Release();
         }

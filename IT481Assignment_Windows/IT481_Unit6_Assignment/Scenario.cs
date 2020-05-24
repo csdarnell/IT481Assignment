@@ -54,23 +54,23 @@ namespace IT481_Unit6_Assignment
 
             Scenario scenario = new Scenario(_totalRooms, _numberOfCustomers);
 
-            DressingRooms dressingRooms = new DressingRooms(_totalRooms);
+            DressingRooms dressingRooms = new DressingRooms(timeScale, _totalRooms);
 
             Stopwatch stopWatch = new Stopwatch();
 
             _threads = new Thread[_numberOfCustomers];
 
-            Task[] dressingRoomCustomerTasks = new Task[_numberOfCustomers];
-            
+            List<Task> dressingRoomCustomerTasks = new List<Task>();
+
             for (int i = 0; i < _numberOfCustomers; i++)
             {
                 Customer customer = new Customer(i.ToString(), _scenarioMaxGarmentsPerCustomer, _standardGarmentsPerCustomerThreshold, _scenarioAverageTimePerGarment);
                 _customers.Add(customer);
-                Console.WriteLine($"Customer {customer.Name} is now in line with {customer.NumberOfGarments} garments (time/garment: {customer.TimePerGarment}).");
-                dressingRoomCustomerTasks[i] = dressingRooms.RequestRoom(customer);
+                Console.WriteLine($"{DateTime.Now} - Customer {customer.Name} has {customer.NumberOfGarments} garments, with average time/garment {customer.TimePerGarment}.");
+                dressingRoomCustomerTasks.Add(Task.Factory.StartNew(async () => { await dressingRooms.RequestRoom(customer); }));
             }
 
-            Task.WaitAll(dressingRoomCustomerTasks);
+            Task.WaitAll(dressingRoomCustomerTasks.ToArray());
 
             foreach(Customer customer in _customers)
             {
