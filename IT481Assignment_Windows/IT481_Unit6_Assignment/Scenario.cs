@@ -12,8 +12,9 @@ namespace IT481_Unit6_Assignment
     {
         private static int _totalRooms;
         private static int _numberOfCustomers;
-        private static int _scenarioMaxItemsPerCustomer;
-        private const int _standardItemsPerCustomerThreshold = 6;
+        private static int _scenarioMaxGarmentsPerCustomer;
+        private static int _scenarioAverageTimePerGarment;
+        private const int _standardGarmentsPerCustomerThreshold = 6;
         private static int _totalItems = 0;
 
         private static Semaphore _semaphore;
@@ -38,8 +39,11 @@ namespace IT481_Unit6_Assignment
             Console.Write("How many customers do you want? ");
             _numberOfCustomers = Int32.Parse(Console.ReadLine());
 
-            Console.Write("What is the maximum number of clothing items per customer? (0 = random): ");
-            _scenarioMaxItemsPerCustomer = Int32.Parse(Console.ReadLine());
+            Console.Write("What is the maximum number of garments per customer? (0 = random): ");
+            _scenarioMaxGarmentsPerCustomer = Int32.Parse(Console.ReadLine());
+
+            Console.Write("What is the average 'time per garment' dressing room time? (0 = random): ");
+            _scenarioAverageTimePerGarment = Int32.Parse(Console.ReadLine());
 
             _semaphore = new Semaphore(_totalRooms, _totalRooms);
 
@@ -53,9 +57,9 @@ namespace IT481_Unit6_Assignment
 
             for (int i = 0; i < _numberOfCustomers; i++)
             {
-                Customer _customer = new Customer(_scenarioMaxItemsPerCustomer, _standardItemsPerCustomerThreshold);
+                Customer _customer = new Customer(i.ToString(), _scenarioMaxGarmentsPerCustomer, _standardGarmentsPerCustomerThreshold, _scenarioAverageTimePerGarment);
 
-                _totalItems += _customer.NumberOfItems;
+                _totalItems += _customer.NumberOfGarments;
 
                 _threads[i] = new Thread(() => doThread(i, dressingRooms, _numberOfCustomers, _totalItems));
 
@@ -65,7 +69,7 @@ namespace IT481_Unit6_Assignment
             Console.WriteLine($"Average run time in milliseconds: {_cumulativeRunTime / _numberOfCustomers}");
             Console.WriteLine($"Average wait time in milliseconds: {_cummulativeWaitTime / _numberOfCustomers}");
             Console.WriteLine($"Total Customers is: {_numberOfCustomers}");
-            Console.WriteLine($"Average number of items was: {_totalItems / _numberOfCustomers}");
+            Console.WriteLine($"Average number of garments was: {_totalItems / _numberOfCustomers}");
 
             Console.ReadKey();
         }
@@ -73,34 +77,34 @@ namespace IT481_Unit6_Assignment
         private static void doThread(int customerNumber, DressingRooms dressingRooms, int tc, int numberOfItems)
         {
 
-            // Initiate a wait timer
-            Stopwatch waitingForAvailableRoomTimer = new Stopwatch();
-            waitingForAvailableRoomTimer.Start();
+            //// Initiate a wait timer
+            //Stopwatch waitingForAvailableRoomTimer = new Stopwatch();
+            //waitingForAvailableRoomTimer.Start();
 
-            // Waiting on thread
-            Console.WriteLine($"{customerNumber} is waiting for an available room");
-            _semaphore.WaitOne();
+            //// Waiting on thread
+            //Console.WriteLine($"{customerNumber} is waiting for an available room");
+            //_semaphore.WaitOne();
 
-            // Stop the wait timer
-            waitingForAvailableRoomTimer.Stop();
-            _cummulativeWaitTime += waitingForAvailableRoomTimer.ElapsedMilliseconds;
+            //// Stop the wait timer
+            //waitingForAvailableRoomTimer.Stop();
+            //_cummulativeWaitTime += waitingForAvailableRoomTimer.ElapsedMilliseconds;
 
-            // Start the run timer, since the customer can now go into the dressing room
-            Stopwatch tryingOnClothesTimer = new Stopwatch();
+            //// Start the run timer, since the customer can now go into the dressing room
+            //Stopwatch tryingOnClothesTimer = new Stopwatch();
 
-            // Run the thread
-            Console.WriteLine($"Customer {customerNumber} can now use a dressing room.");
+            //// Run the thread
+            //Console.WriteLine($"Customer {customerNumber} can now use a dressing room.");
 
-            // Get the wait time, then sleep
-            int wait = dressingRooms.RequestRoom();
-            Thread.Sleep(wait * numberOfItems);
+            //// Get the wait time, then sleep
+            //int wait = dressingRooms.TimePerGarment();
+            //Thread.Sleep(wait * numberOfItems);
 
-            // Stop the run timer, since the customer has left the dressing room
-            tryingOnClothesTimer.Stop();
-            _cumulativeRunTime += tryingOnClothesTimer.ElapsedMilliseconds;
-            Console.WriteLine($"Customer {customerNumber} finished trying on items in room");
+            //// Stop the run timer, since the customer has left the dressing room
+            //tryingOnClothesTimer.Stop();
+            //_cumulativeRunTime += tryingOnClothesTimer.ElapsedMilliseconds;
+            //Console.WriteLine($"Customer {customerNumber} finished trying on items in room");
 
-            _semaphore.Release();
+            //_semaphore.Release();
 
         }
     }

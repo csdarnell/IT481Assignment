@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,14 +10,16 @@ namespace IT481_Unit6_Assignment
 {
     public class DressingRooms
     {
-        private readonly int _rooms;
+        private readonly int _totalRooms;
 
         private int _occupiedRoomCount;
 
-        private SemaphoreSlim semaphore = new SemaphoreSlim(1);
+        private Semaphore _semaphore;
+
         public DressingRooms(int rooms = 3)
         {
-            _rooms = rooms;
+            _totalRooms = rooms;
+            _semaphore = new Semaphore(_totalRooms, _totalRooms);
         }
 
         private DressingRooms()
@@ -28,14 +31,33 @@ namespace IT481_Unit6_Assignment
         /// Request a Room
         /// </summary>
         /// <returns>Wait Time</returns>
-        public int RequestRoom()
+        public void RequestRoom(Customer customer)
         {
-            return Randomizer.GetRandomNumber(1, 3);
+            // Customer is now in the dressing room waiting line
+            customer.WaitingStopWatch.Start();
+
+            // Waiting on thread
+            Console.WriteLine($"{customer.Name} is waiting for an available room");
+            _semaphore.WaitOne();
+
+            // Stop the wait timer
+            customer.WaitingStopWatch.Stop();
+
+            Console.WriteLine($"Customer {customer.Name} can now use a dressing room.");
         }
 
-        public void ReleaseRoom()
+        public void ReleaseRoom(Customer customer)
         {
-            _occupiedRoomCount--;
+            // Customer has entered a dressing room
+            customer.OccupiedStopwatch.Start();
+
+            // Get the wait time, then sleep
+            Thread.Sleep(customer.TimePerGarment * customer.NumberOfGarments);
+
+            // Stop the run timer, since the customer has left the dressing room
+            customer.OccupiedStopwatch.Stop();
+
+            Console.WriteLine($"Customer {customer.Name} finished trying on items in room");
         }
 
 
