@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace IT481_Unit4_Assignment_Test
 {
 	[TestClass]
-	public class UnitTest1
+	public class IT481_Unit4_AssignmentTests
 	{
 		[TestMethod]
 		public void TestExample1_WithNullArray_Expect100()
