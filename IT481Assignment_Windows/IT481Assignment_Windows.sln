@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IT481_Unit4_Assignment", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IT481_Unit4_Assignment_Test", "IT481_Unit4_Assignment_Test\IT481_Unit4_Assignment_Test.csproj", "{F8188E9D-99EC-4D3D-A216-E1CAD8CEA7FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IT481_Unit7_Assignment", "IT481_Unit7_Assignment\IT481_Unit7_Assignment.csproj", "{4DE0C09C-EFDC-4DAA-BF66-D3EF9CAAFDA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{F8188E9D-99EC-4D3D-A216-E1CAD8CEA7FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8188E9D-99EC-4D3D-A216-E1CAD8CEA7FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8188E9D-99EC-4D3D-A216-E1CAD8CEA7FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DE0C09C-EFDC-4DAA-BF66-D3EF9CAAFDA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE0C09C-EFDC-4DAA-BF66-D3EF9CAAFDA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE0C09C-EFDC-4DAA-BF66-D3EF9CAAFDA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE0C09C-EFDC-4DAA-BF66-D3EF9CAAFDA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
