@@ -21,14 +21,14 @@ namespace IT481_Unit7_Assignment
 			TimeSpan list1BubbleSortDiff;
 			TimeSpan list1MergeSortDiff;
 
-			int list2SampleSize = 1000;
+			int list2SampleSize = 10000;
 			int[] list2 = PrepareTestSamples(list2SampleSize);
 			int[] list2ForBubbleSort = DuplicateArray(list2);
 			int[] list2ForMergeSort = DuplicateArray(list2);
 			TimeSpan list2BubbleSortDiff;
 			TimeSpan list2MergeSortDiff;
 
-			int list3SampleSize = 10000;
+			int list3SampleSize = 100000;
 			int[] list3 = PrepareTestSamples(list3SampleSize);
 			int[] list3ForBubbleSort = DuplicateArray(list3);
 			int[] list3ForMergeSort = DuplicateArray(list3);
@@ -66,9 +66,9 @@ namespace IT481_Unit7_Assignment
 			end = DateTime.Now;
 			list3MergeSortDiff = end - start;
 
-			Console.WriteLine($"List 1 had {list1SampleSize}.  Bubble Sort Time:  {list1BubbleSortDiff.Milliseconds} milliseconds;  Merge Sort Time:  {list1MergeSortDiff.Milliseconds} milliseconds");
-			Console.WriteLine($"List 2 had {list2SampleSize}.  Bubble Sort Time:  {list2BubbleSortDiff.Milliseconds} milliseconds;  Merge Sort Time:  {list2MergeSortDiff.Milliseconds} milliseconds");
-			Console.WriteLine($"List 3 had {list3SampleSize}.  Bubble Sort Time:  {list3BubbleSortDiff.Milliseconds} milliseconds;  Merge Sort Time:  {list3MergeSortDiff.Milliseconds} milliseconds");
+			Console.WriteLine($"List 1 had {list1SampleSize}.  Bubble Sort Time:  {list1BubbleSortDiff.TotalMilliseconds} milliseconds;  Merge Sort Time:  {list1MergeSortDiff.TotalMilliseconds} milliseconds");
+			Console.WriteLine($"List 2 had {list2SampleSize}.  Bubble Sort Time:  {list2BubbleSortDiff.TotalMilliseconds} milliseconds;  Merge Sort Time:  {list2MergeSortDiff.TotalMilliseconds} milliseconds");
+			Console.WriteLine($"List 3 had {list3SampleSize}.  Bubble Sort Time:  {list3BubbleSortDiff.TotalMilliseconds} milliseconds;  Merge Sort Time:  {list3MergeSortDiff.TotalMilliseconds} milliseconds");
 
 			Console.ReadKey();
 
@@ -134,7 +134,7 @@ namespace IT481_Unit7_Assignment
 
 		public static void MergeSortMain(int[] numbers, int left, int mid, int right)
 		{
-			int[] temp = new int[1000000];
+			int[] temp = new int[9999999];
 			int i, eol, num, pos;
 			eol = (mid - 1);
 			pos = left;
